@@ -39,8 +39,26 @@ Airplane.prototype.land = function () {
         + It should return a string with `name` and `age`. Example: "Mary, 50"
 */
 
-function Person() {
+function Person(name, age) {
+  this.name = name;
+  this.age = age;
+  this.stomach = [];
+}
 
+Person.prototype.eat = function (someFood) {
+  if (this.stomach.length == 10) {
+    return;
+  } else {
+    this.stomach.push(someFood);
+  }
+}
+
+Person.prototype.poop = function () {
+  this.stomach.length = 0;
+}
+
+Person.prototype.toString = function () {
+  return `${this.name}, ${this.age}`;
 }
 
 /*
@@ -57,8 +75,30 @@ function Person() {
         + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
 */
 
-function Car() {
+function Car(model, milesPerGallon) {
+  this.tank = 0;
+  this.odometer = 0;
+  this.model = model;
+  this.milesPerGallon = milesPerGallon;
+}
 
+Car.prototype.fill = function (gallons) {
+  this.tank = this.tank + gallons;
+}
+
+
+Car.prototype.drive = function (distance) {
+  let fuel = distance / this.milesPerGallon; // Fuel used
+  let fumes = this.tank - fuel; // Left in tank
+
+  if (fumes <= 0) {
+    this.odometer = (distance * this.tank) / fuel;
+    this.tank = 0;
+    return `I ran out of fuel at ${this.odometer} miles!`;
+  } else {
+    this.odometer = this.odometer + distance;
+    this.tank = this.tank - fuel;
+  }
 }
 
 /*
@@ -68,18 +108,26 @@ function Car() {
     - Besides the methods on Person.prototype, babies have the ability to `.play()`:
         + Should return a string "Playing with x", x being the favorite toy.
 */
-function Baby() {
-
+function Baby(name, age, favoriteToy) {
+  Person.call(this, name, age);
+  this.favoriteToy = favoriteToy;
 }
 
-/* 
+Baby.prototype = Object.create(Person.prototype);
+
+Baby.prototype.play = function () {
+  return `Playing with ${this.favoriteToy}`;
+}
+
+
+/*
   TASK 4
 
   In your own words explain the four principles for the "this" keyword below:
-  1. 
-  2. 
-  3. 
-  4. 
+  1. If not used or found in any other context, 'this' will default to the global window object
+  2. When given the context of an object, 'this' is bound to the entity to the left of the dot. Otherwise known as Implicit Binding
+  3. When using the 'New' keyword to create a new instance from a constructor function, 'this' will be bound to the newly created instance of the object
+  4. The fourth principle of 'this' is in relation to the .call(), .bind(), and .apply() methods. Objects that have one of these methods in tow have 'this' bound to        them. This is known as Explicit Binding.
 */
 
 
