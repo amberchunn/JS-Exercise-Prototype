@@ -101,10 +101,10 @@ function Baby() {
   TASK 4
 
   In your own words explain the four principles for the "this" keyword below:
-  1.
-  2.
-  3.
-  4.
+  1. If not used or found in any other context, 'this' will default to the global window object
+  2. When given the context of an object, 'this' is bound to the entity to the left of the dot. Otherwise known as Implicit Binding
+  3. When using the 'New' keyword to create a new instance from a constructor function, 'this' will be bound to the newly created instance of the object
+  4. The fourth principle of 'this' is in relation to the .call(), .bind(), and .apply() methods. Objects that have one of these methods in tow have 'this' bound to        them. This is known as Explicit Binding.
 */
 
 
